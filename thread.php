@@ -77,7 +77,7 @@
   if ($method == 'POST') {
     $question_description = $_POST['question_description'];
     $question = $_POST['question'];
-    $username=$_SERVER['username'];
+    $username=$_SESSION['username'];
     $sql = "INSERT INTO `threads_data` (`sno`, `question`, `question_description`,`username`) VALUES (' $sno', '$question', '$question_description','$username')";
     $result1 = mysqli_query($conn, $sql);
     if (!$result1) {
