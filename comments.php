@@ -49,6 +49,7 @@ require ('partials/welcome_conn.php');
 <body>
     <?php
     $sno = $_GET['threadid'];
+    $question_id= $_GET['thread1id'];
     require ('partials/welcome_conn.php');
     $sql1 = "SELECT *FROM `data10` WHERE sno=$sno";
     $result = mysqli_query($conn, $sql1);
@@ -57,14 +58,17 @@ require ('partials/welcome_conn.php');
 
     }
     $user_name=$_SESSION['username'];
-    $sql2 = "SELECT * FROM `comment_data` WHERE sno = $sno";
+    $sql2 = "SELECT * FROM `comment_data` WHERE question_id=$question_id";
     $result2 = mysqli_query($conn, $sql2);
+    if (!$result2) {
+      echo "" . mysqli_error($conn);
+  } 
     $method = $_SERVER['REQUEST_METHOD'];
     if ($method == 'POST') {
         $comment = $_POST['comment'];
         //$sql = "INSERT INTO `comment_data` (`sno`, `username`,`comment`,`time`) VALUES ('$sno','$user_name','$comment',current_timestamp())
         // ";
-        $sql="INSERT INTO `comment_data` (`sno`, `comment`, `username`,`time`) VALUES ('$sno', '$comment', '$user_name',current_timestamp())";
+        $sql="INSERT INTO `comment_data` (`sno`, `comment`, `username`,`time`,`question_id`) VALUES ('$sno', '$comment', '$user_name',current_timestamp(),'$question_id')";
          $result1 = mysqli_query($conn, $sql);
          if (!$result1) {
              echo "" . mysqli_error($conn);
