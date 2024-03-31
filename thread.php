@@ -77,7 +77,8 @@
   if ($method == 'POST') {
     $question_description = $_POST['question_description'];
     $question = $_POST['question'];
-    $sql = "INSERT INTO `threads_data` (`sno`, `question`, `question_description`) VALUES (' $sno', '$question', '$question_description')";
+    $username=$_SERVER['username'];
+    $sql = "INSERT INTO `threads_data` (`sno`, `question`, `question_description`,`username`) VALUES (' $sno', '$question', '$question_description','$username')";
     $result1 = mysqli_query($conn, $sql);
     if (!$result1) {
       echo "" . mysqli_error($conn);
@@ -139,7 +140,7 @@
             class="align-self-center mr-3" alt="..."><p>' . $row1['username'] . ' </p>
           
           <div class="media-body">          
-          <a class="list-group-item list-group-item-action" href="comments.php?threadid=' . $sno . '"> <h5>' . $question_number . '.</h5><h5 class="mt-0 ">' . $row1['question'] . '</h5>
+          <a class="list-group-item list-group-item-action" href="comments.php?threadid=' . $sno . '&thread1id=' . $row1['question_id'] . '"> <h5>' . $question_number . '.</h5><h5 class="mt-0 ">' . $row1['question'] . '</h5>
             <p>' . $row1['question_description'] . ' </p>
           </a>
 
